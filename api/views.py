@@ -1,4 +1,3 @@
-from tkinter.tix import IMMEDIATE
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.http import JsonResponse

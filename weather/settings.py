@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'knox',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -107,6 +108,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SWAGGER_SETTINGS = {
+    'DEFAULT_FIELD_INSPECTORS': [
+        'drf_yasg.inspectors.CamelCaseJSONFilter',
+        'drf_yasg.inspectors.InlineSerializerInspector',
+        'drf_yasg.inspectors.RelatedFieldInspector',
+        'drf_yasg.inspectors.ChoiceFieldInspector',
+        'drf_yasg.inspectors.FileFieldInspector',
+        'drf_yasg.inspectors.DictFieldInspector',
+        'drf_yasg.inspectors.SimpleFieldInspector',
+        'drf_yasg.inspectors.StringDefaultFieldInspector',
+    ],  #Above code is to hide models in swagger
+    'SHOW_REQUEST_HEADERS': True,
+    'SECURITY_DEFINITIONS': {
+        'token': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -124,6 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
