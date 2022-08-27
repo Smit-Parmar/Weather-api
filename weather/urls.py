@@ -21,6 +21,7 @@ from rest_framework import permissions
 from django.views.static import serve 
 from django.conf.urls import url
 from weather import settings
+from django.conf.urls.static import static
 schema_view = get_schema_view(
    openapi.Info(
       title="Weather API",
@@ -40,5 +41,5 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
